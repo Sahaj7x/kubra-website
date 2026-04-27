@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gd:#1a3d2b;--gm:#2e6647;--gl:#4a9167;--gp:#eaf3ec;--cr:#f9f6f0;--cd:#ede7da;--go:#c49a3c;--gol:#e0b96a;--td:#1c1c1c;--tm:#3d4a3e;--tmu:#6b7c6d;--white:#ffffff;--shadow:0 4px 24px rgba(26,61,43,0.10)}
+body{font-family:'DM Sans',sans-serif;background:var(--cr);color:var(--td);font-size:16px;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+nav{background:var(--gd);display:flex;justify-content:space-between;align-items:center;padding:0 2.5rem;height:66px;position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.18)}
+.nav-logo-wrap{display:flex;align-items:center;gap:15px}
+.nav-emblem{width:36px;height:36px;background:var(--go);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;color:var(--gd);font-size:1rem;font-weight:700}
+.nav-logo{font-family:'Playfair Display',serif;color:var(--cr);font-size:.95rem;font-weight:600;line-height:1.2}
+.nav-logo small{display:block;font-size:.62rem;font-weight:400;color:rgba(248,244,238,.45);letter-spacing:.06em}
+.nav-links{display:flex;gap:1.6rem;list-style:none;align-items:center}
+.nav-links a{color:rgba(248,244,238,.72);text-decoration:none;font-size:.82rem;cursor:pointer;transition:color .2s;font-weight:400}
+.nav-links a:hover,.nav-links a.active-link{color:var(--gol)}
+.nav-admit{background:var(--go);color:var(--gd)!important;padding:.38rem 1rem;border-radius:4px;font-weight:500!important;transition:background .2s!important}
+.nav-admit:hover{background:var(--gol)!important}
+
+/* PAGES */
+.page{display:none}.page.active{display:block}
+
+/* HERO */
+.hero{background:var(--gd);min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:4rem 2rem}
+.hero-bg{position:absolute;inset:0;opacity:.07}
+.hero-bg svg{width:100%;height:100%}
+.hero-inner{margin-top: -20px;position:relative;z-index:2;max-width:680px}
+.hero-ar{font-family:'Amiri',serif;font-size:clamp(1.1rem,3vw,1.6rem);color:var(--gol);margin-bottom:.5rem;direction:rtl;letter-spacing:.04em}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:.5rem}
+.hero-sub{font-size:clamp(.85rem,2vw,1.05rem);color:rgba(248,244,238,.6);margin-bottom:.4rem;font-weight:300;max-width:520px;margin-left:auto;margin-right:auto}
+.hero-loc{font-size:.78rem;color:var(--gol);letter-spacing:.08em;margin-bottom:2.2rem;opacity:.8}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-gold{background:var(--go);color:var(--gd);padding:.72rem 1.8rem;border-radius:5px;font-weight:500;font-size:.875rem;cursor:pointer;border:none;transition:background .2s;font-family:'DM Sans',sans-serif}
+.btn-gold:hover{background:var(--gol)}
+.btn-ghost{border:1.5px solid rgba(248,244,238,.35);color:var(--white);padding:.72rem 1.8rem;border-radius:5px;font-size:.875rem;font-weight:300;cursor:pointer;background:none;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-ghost:hover{border-color:var(--gol);color:var(--gol)}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;cursor:pointer;opacity:.4}
+.hero-scroll span{font-size:.68rem;color:var(--white);letter-spacing:.1em;text-transform:uppercase}
+.hero-scroll-dot{width:6px;height:6px;border-radius:50%;background:var(--white);animation:bounce 1.5s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* STATS */
+.stats{background:var(--gm);display:flex;justify-content:center;flex-wrap:wrap;border-bottom:2px solid rgba(196,154,60,.3)}
+.stat{text-align:center;padding:1.3rem 2.5rem;border-right:1px solid rgba(255,255,255,.1)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--gol);font-weight:700}
+.stat-l{font-size:.68rem;color:rgba(248,244,238,.5);letter-spacing:.08em;text-transform:uppercase;margin-top:.1rem}
+
+/* SECTION BASE */
+.sec{padding:5rem 2rem}
+.inner{max-width:1080px;margin:0 auto}
+.slabel{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gl);font-weight:500;margin-bottom:.5rem}
+.stitle{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--gd);margin-bottom:.9rem;font-weight:700}
+.stitle-white{color:var(--white)}
+.sline{width:44px;height:2px;background:var(--go);margin-bottom:2rem}
+.sdesc{color:var(--tm);font-weight:300;font-size:.92rem;max-width:580px;line-height:1.8}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-img-box{background:var(--gd);border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.about-img-pattern{position:absolute;inset:0;opacity:.08}
+.about-img-text{position:relative;z-index:2;text-align:center;padding:2rem;color:var(--white)}
+.about-img-text svg{width:64px;height:64px;opacity:.5;margin-bottom:1rem}
+.about-img-text p{font-size:.8rem;opacity:.4;font-style:italic}
+.about-content p{color:var(--tm);font-weight:300;font-size:.92rem;margin-bottom:1rem;line-height:1.8}
+.about-content .arabic-text{font-family:'Amiri',serif;font-size:1.1rem;color:var(--go);direction:rtl;margin-bottom:1rem}
+.about-values{display:flex;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.val-chip{background:var(--gp);border-radius:4px;padding:.5rem 1rem;font-size:.8rem;color:var(--gm);font-weight:500;border-left:3px solid var(--go)}
+
+/* COURSES */
+.courses-sec{background:var(--gp)}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:.5rem}
+.course-card{background:var(--white);border-radius:8px;padding:2rem;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.course-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--go)}
+.course-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(26,61,43,.14)}
+.course-icon{width:48px;height:48px;background:var(--gp);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;font-size:1.3rem}
+.course-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gd);margin-bottom:.6rem;font-weight:600}
+.course-card p{font-size:.875rem;color:var(--tmu);font-weight:300;line-height:1.7}
+.course-tag{display:inline-block;margin-top:1rem;background:var(--gp);color:var(--gm);font-size:.7rem;padding:.3rem .75rem;border-radius:3px;letter-spacing:.05em;text-transform:uppercase;font-weight:500}
+
+/* HADITH HIGHLIGHT */
+.hadith-sec{background:var(--gd);padding:5rem 2rem;text-align:center;position:relative;overflow:hidden}
+.hadith-bg{position:absolute;inset:0;opacity:.06}
+.hadith-bg svg{width:100%;height:100%}
+.hadith-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hadith-quote{font-family:'Amiri',serif;font-size:clamp(1.1rem,3vw,1.6rem);color:var(--gol);direction:rtl;margin-bottom:1rem;line-height:1.8}
+.hadith-text{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.1rem,2.5vw,1.5rem);color:var(--white);line-height:1.6;margin-bottom:.8rem}
+.hadith-src{font-size:.78rem;color:rgba(248,244,238,.4);letter-spacing:.08em}
+.hadith-line{width:60px;height:1px;background:var(--go);margin:1.5rem auto}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.gallery-item{border-radius:6px;overflow:hidden;aspect-ratio:4/3;background:var(--gd);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;transition:transform .2s}
+.gallery-item:hover{transform:scale(1.02)}
+.gallery-item:nth-child(1){grid-column:span 2;aspect-ratio:2/1}
+.gallery-placeholder{text-align:center;color:rgba(248,244,238,.3);padding:1rem}
+.gallery-placeholder svg{width:28px;height:28px;margin-bottom:.5rem;display:block;margin-left:auto;margin-right:auto}
+.gallery-placeholder p{font-size:.72rem}
+.gallery-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(26,61,43,.85));padding:1rem .8rem .6rem;font-size:.75rem;color:rgba(248,244,238,.8);font-weight:400}
+
+/* FACULTY */
+.faculty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:.5rem}
+.faculty-card{background:var(--white);border-radius:8px;padding:1.8rem 1.4rem;text-align:center;box-shadow:var(--shadow);transition:transform .2s}
+.faculty-card:hover{transform:translateY(-3px)}
+.faculty-avatar{width:72px;height:72px;border-radius:50%;background:var(--gp);border:3px solid var(--go);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gd);font-weight:700}
+.faculty-card h4{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gd);margin-bottom:.3rem;font-weight:600}
+.faculty-card p{font-size:.78rem;color:var(--tmu);font-weight:300}
+.faculty-card .role{font-size:.72rem;color:var(--go);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+
+/* CONTACT */
+.contact-sec{background:var(--cd)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start}
+.cinfo-item{display:flex;gap:1rem;margin-bottom:1.4rem;align-items:flex-start}
+.cicon{width:40px;height:40px;background:var(--gp);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(46,102,71,.15)}
+.cicon svg{width:16px;height:16px;stroke:var(--gm);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cinfo-text strong{display:block;font-size:.7rem;color:var(--gl);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.2rem;font-weight:500}
+.cinfo-text span{color:var(--tm);font-size:.875rem;font-weight:300}
+.wa-btn{display:inline-flex;align-items:center;gap:.6rem;background:#25D366;color:white;padding:.65rem 1.4rem;border-radius:5px;font-size:.85rem;font-weight:500;text-decoration:none;margin-top:.5rem;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:background .2s}
+.wa-btn:hover{background:#1ebe5b}
+.map-box{background:var(--gd);border-radius:8px;height:200px;display:flex;align-items:center;justify-content:center;margin-top:1.5rem;position:relative;overflow:hidden}
+.map-placeholder{text-align:center;color:rgba(248,244,238,.4);z-index:2;position:relative}
+.map-placeholder svg{width:28px;height:28px;margin-bottom:.5rem;display:block;margin-left:auto;margin-right:auto}
+.map-placeholder p{font-size:.75rem}
+.cform input,.cform textarea{width:100%;border:1px solid #cfc8bc;background:white;border-radius:5px;padding:.68rem .95rem;font-family:'DM Sans',sans-serif;font-size:.875rem;color:var(--td);outline:none;margin-bottom:.8rem;transition:border-color .2s}
+.cform input:focus,.cform textarea:focus{border-color:var(--gm)}
+.cform textarea{height:110px;resize:vertical}
+.cform button{background:var(--gd);color:white;border:none;padding:.75rem 2rem;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:.875rem;cursor:pointer;font-weight:500;transition:background .2s}
+.cform button:hover{background:var(--gm)}
+.sent-ok{display:none;margin-top:.8rem;padding:.7rem 1rem;background:var(--gp);border-radius:4px;font-size:.82rem;color:var(--gd)}
+
+/* FOOTER */
+footer{background:#0d1f13;padding:2.5rem 2rem;text-align:center}
+.footer-logo{font-family:'Playfair Display',serif;color:var(--gol);font-size:1.1rem;margin-bottom:.4rem}
+.footer-ar{font-family:'Amiri',serif;color:rgba(224,185,106,.4);font-size:.9rem;margin-bottom:.8rem;direction:rtl}
+footer p{color:rgba(248,244,238,.22);font-size:.75rem;font-weight:300}
+footer span{color:var(--go)}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.footer-links a{color:rgba(248,244,238,.35);font-size:.78rem;cursor:pointer;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gol)}
+
+/* ADMISSION */
+.admission-sec{background:var(--gp)}
+.adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start}
+.adm-steps{counter-reset:step}
+.adm-step{display:flex;gap:1.2rem;margin-bottom:1.5rem;align-items:flex-start;counter-increment:step}
+.adm-num{width:36px;height:36px;border-radius:50%;background:var(--go);color:var(--gd);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+.adm-step-text h4{font-size:.9rem;color:var(--gd);font-weight:500;margin-bottom:.2rem}
+.adm-step-text p{font-size:.82rem;color:var(--tmu);font-weight:300}
+.adm-form{background:white;border-radius:8px;padding:2rem;box-shadow:var(--shadow)}
+.adm-form h3{font-family:'Playfair Display',serif;color:var(--gd);margin-bottom:1.2rem;font-size:1.05rem}
+.adm-form input,.adm-form select,.adm-form textarea{width:100%;border:1px solid #cfc8bc;background:white;border-radius:5px;padding:.65rem .9rem;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--td);outline:none;margin-bottom:.75rem;transition:border-color .2s}
+.adm-form input:focus,.adm-form select:focus{border-color:var(--gm)}
+.adm-form button{width:100%;background:var(--gd);color:white;border:none;padding:.8rem;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:.9rem;cursor:pointer;font-weight:500;transition:background .2s}
+.adm-form button:hover{background:var(--gm)}
+.adm-sent{display:none;margin-top:.8rem;padding:.8rem 1rem;background:var(--gp);border-radius:4px;font-size:.82rem;color:var(--gd);text-align:center}
+
+.news-ticker {
+    background: var(--gm);
+    color: white;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    overflow: hidden;
+}
+.ticker-label {
+    background: var(--go);
+    color: var(--gd);
+    padding: 0 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    z-index: 2;
+}
+.ticker-content {
+    flex: 1;
+}
+/* --- ANIMATIONS (Add this once at the bottom of your CSS) --- */
+
+/* 1. Initial hidden state for all animated elements */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. When the JavaScript adds this class, the element slides up and fades in */
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3. Staggered timing so cards appear one-by-one instead of all at once */
+.course-card:nth-child(2), .faculty-card:nth-child(2) { transition-delay: 0.15s; }
+.course-card:nth-child(3), .faculty-card:nth-child(3) { transition-delay: 0.3s; }
+.course-card:nth-child(4), .faculty-card:nth-child(4) { transition-delay: 0.45s; }
+
+/* Make cards feel like they are floating when hovered */
+.course-card, .faculty-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(26, 61, 43, 0.05);
+}
+
+.course-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--go);
+    box-shadow: 0 20px 40px rgba(26, 61, 43, 0.15);
+}
+
+/* Add a gold underline effect to nav links on hover */
+.nav-links a {
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--gol);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+/* 4. The breathing background effect for the Hero section */
+.hero-bg svg {
+  animation: slow-zoom 20s infinite alternate linear;
+}
+
+
+@keyframes slow-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* 5. A soft "Call to Action" pulse for the Apply button */
+.nav-admit {
+  animation: pulse-gold 3s infinite;
+}
+
+@keyframes pulse-gold {
+  0% { box-shadow: 0 0 0 0 rgba(196, 154, 60, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(196, 154, 60, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(196, 154, 60, 0); }
+}
+/* --- MOBILE RESPONSIVE SECTION (Corrected) --- */
+@media(max-width:720px) {
+    /* 1. General Grid Fixes */
+    .about-grid, .contact-grid, .adm-grid {
+        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem;
+    }
+
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .sec { padding: 3.5rem 1.2rem; }
+    .stat { padding: 1rem 1.3rem; }
+
+    /* 2. Navigation Bar Mobile Fix */
+    nav {
+        height: auto !important;
+        padding: 20px 10px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px;
+        position: relative !important; /* Prevents overlapping content */
+    }
+
+    .nav-logo-wrap {
+        flex-direction: column !important;
+        text-align: center;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+
+    .nav-logo-wrap img {
+        width: 55px !important; 
+        height: 55px !important;
+        margin-top: 5px !important; /* Pushes it down from the very top */
+        margin-bottom: 5px !important;
+        object-fit: contain;
+    }
+
+    .nav-logo {
+       font-size: 0.9rem !important;
+       text-align: center;
+        line-height: 1.2 !important;
+       }
+
+    .nav-logo small { font-size: 0.7rem !important; }
+
+    /* 3. Horizontal Swipe Menu for Links */
+    .nav-links {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        overflow-x: auto !important; 
+        white-space: nowrap !important;
+        padding-bottom: 8px;
+        gap: 15px !important;
+        display: flex !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-links::-webkit-scrollbar { display: none; }
+
+    /* 4. Contact Section Mobile Fix */
+    #page-contact .section-container {
+        padding-top: 20px !important;
+        padding-top: 50px !important; /* Internal space */
+        margin-top: 20px !important;  /* External gap from the WhatsApp button */
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-info {
+        width: 100% !important;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .wa-btn {
+        position: relative !important; 
+        width: 100% !important;
+        margin: 20px 0 !important; /* Adds space above and below the button */
+        display: flex;
+        justify-content: center;
+        z-index: 10;;
+    }
+
+    .map-box {
+        position: relative !important;
+        margin-top: 10px !important;
+        clear: both;
+        width: 100% !important;
+        height: 300px !important;
+        order: 1; /* Map on top */
+        border-radius: 12px;
+    }
+
+    .contact-form {
+        width: 100% !important;
+        order: 2; /* Form below map */
+        padding: 0 !important;
+    }
+
+    .contact-form input, 
+    .contact-form textarea {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+} /* <--- THIS BRACKET ENDS THE MOBILE SECTION */
+
+/* --- Desktop/Global Styles (Outside the Media Query) --- */
+.nav-scrolled {
+    height: 60px;
+    background: rgba(26, 61, 43, 0.98) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.map-box {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Desktop layout */
+  gap: 30px;
+}
+
+@media(max-width:720px) {
+  .contact-grid {
+    grid-template-columns: 1fr !important; /* Mobile: 1 single column */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .map-box {
+    height: 300px !important;
+    width: 100%;
+    order: 2; /* Put map in the middle */
+  }
+  
+  .contact-sidebar {
+    order: 1; /* Info & WhatsApp on top */
+  }
+  
+  .cform {
+    order: 3; /* Form at the bottom */
+  }
+}
+.about-grid {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.about-image-container img {
+    max-width: 100%; /* Prevents zooming past container bounds */
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+@media (max-width: 720px) {
+    .about-grid {
+        flex-direction: column !important; /* Stacks image on top of text */
+        text-align: center;
+    }
+    
+    .about-image-container {
+        width: 100% !important;
+    }
+  }    
+  .gallery-img {
+  width: 100%;
+  height: 250px; /* Adjust height to your preference */
+  object-fit: cover; /* This is key! It crops the image to fill the box without stretching */
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden; /* Clips the zoom effect inside the box */
+  border-radius: 12px;
+  background: var(--gd); /* Fallback color */
+}
+
+/* Hover effect for that professional feel */
+.gallery-item:hover .gallery-img {
+  transform: scale(1.1);
+}
+
+.gallery-label {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
+  color: white;
+  padding: 10px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Smaller, sleek social row */
+.hero-socials {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Reduced gap */
+    margin: 10px 0 20px 0; /* Tightened vertical spacing */
+}
+
+.h-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    /* Keeping a decent tap area for thumbs without visual bulk */
+    padding: 5px; 
+}
+
+.h-icon {
+    width: 22px; /* Shrunk from 28px */
+    height: 22px;
+    fill: #ffffff;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+/* On hover (Laptop) or Tap (Mobile) */
+.h-social:active .h-icon, 
+.h-social:hover .h-icon {
+    fill: var(--go);
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+@media(max-width: 720px) {
+    .hero-socials {
+        gap: 18px;
+        margin: 8px 0 18px 0;
+    }
+    
+    .h-icon {
+        width: 20px; /* Even smaller on tiny screens to save space */
+        height: 20px;
+    }
+}
+
+/* Container for the whole Faculty section */
+.faculty-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 per row on mobile */
+    gap: 15px;
+    padding: 10px;
+}
+
+/* The Card itself */
+.faculty-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* THE CRITICAL FIX: Image Wrapper */
+.f-img-wrapper {
+    width: 80px;  /* Fixed width for mobile */
+    height: 80px; /* Fixed height for mobile */
+    border-radius: 50%; /* Makes it a circle */
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 2px solid var(--go);
+}
+
+.f-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This stops the "zoom" and stretching */
+}
+
+/* President / Featured Card Fix */
+.faculty-main .faculty-card.featured {
+    grid-column: span 2; /* Takes full width */
+    margin-bottom: 20px;
+}
+
+.f-img-wrapper.large {
+    width: 120px; /* President's photo slightly larger but not huge */
+    height: 120px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo-wrap">
+  <img src="images/logo.png" alt="Jamia Logo" style="width:40px; height:auto;">
+  <div class="nav-logo">
+    Jamia Khadeejathul Kubra
+    <small>Al Islamiyya · Nettoor, Kochi</small>
+  </div>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="show('home')" id="nl-home" class="active-link">Home</a></li>
+    <li><a onclick="show('about')" id="nl-about">About</a></li>
+    <li><a onclick="show('courses')" id="nl-courses">Courses</a></li>
+    <li><a onclick="show('gallery')" id="nl-gallery">Gallery</a></li>
+    <li><a onclick="show('faculty')" id="nl-faculty">Faculty</a></li>
+    <li><a onclick="show('contact')" id="nl-contact">Contact</a></li>
+    <li><a onclick="show('donate')" id="nl-donate">Donate</a></li>
+    <li><a onclick="show('admission')" id="nl-admission" class="nav-admit">Apply Now</a></li>
+  </ul>
+</nav>
+
+<div class="news-ticker">
+    <div class="ticker-label">Announcements</div>
+    <div class="ticker-content">
+        <marquee behavior="scroll" direction="left">
+            ✨ Admissions Open for 2026-27 Academic Year — Apply before May 15th | 🕌 Special Monthly swalath next Friday at 7:00 PM.
+        </marquee>
+    </div>
+</div>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-bg">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs><pattern id="geo" width="60" height="60" patternUnits="userSpaceOnUse"><polygon points="30,2 58,17 58,43 30,58 2,43 2,17" fill="none" stroke="white" stroke-width="0.8"/><circle cx="30" cy="30" r="4" fill="none" stroke="white" stroke-width="0.6"/></pattern></defs>
+        <rect width="800" height="600" fill="url(#geo)"/>
+      </svg>
+    </div>
+    <div class="hero-inner" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+  
+  <img src="images/logo only.png" alt="Jamia Emblem" style="width: 280px; height: auto; margin-bottom: 0.5rem; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));">
+  
+  <div class="hero-ar" style="margin-top: 0; margin-bottom: 0.2rem;">جامعة خديجة الكبرى الإسلامية</div>
+  
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem; line-height: 1.1;">Jamia Khadeejathul Kubra<br>Al Islamiyya</h1>
+  
+  <div class="hero-sub" style="margin-top: 0;">Nurturing Knowledge, Faith & Character</div>
+  
+  <div class="hero-loc" style="margin-top: 0.2rem;">Maradu Nettoor, near Vyttila, Kochi, Kerala</div>
+  <div class="hero-socials">
+        <a href="https://www.instagram.com/khadeejathulkubraofficial?igsh=MWZheGpzc3d1cHljMQ==" target="_blank" class="h-social" title="Follow on Instagram">
+            <svg viewBox="0 0 24 24" class="h-icon"><path d="M7.75 2h8.5C19.42 2 22 4.58 22 7.75v8.5C22 19.42 19.42 22 16.25 22h-8.5C4.58 22 2 19.42 2 16.25v-8.5C2 4.58 4.58 7.75 7.75 2zm0 1.5c-2.35 0-4.25 1.9-4.25 4.25v8.5c0 2.35 1.9 4.25 4.25 4.25h8.5c2.35 0 4.25-1.9 4.25-4.25v-8.5c0-2.35-1.9-4.25-4.25-4.25h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.25-.75a.75.75 0 110 1.5.75.75 0 010-1.5z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@KUBRALIVEMEDIA/shorts" target="_blank" class="h-social" title="Watch on YouTube">
+            <svg viewBox="0 0 24 24" class="h-icon"><path d="M23.5 6.2c-.3-1.1-1.1-2-2.2-2.3C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.4C1.6 4.2.8 5.1.5 6.2 0 8.2 0 12.3 0 12.3s0 4.1.5 6.1c.3 1.1 1.1 2 2.2 2.3 2 1.4 9.3 1.4 9.3 1.4s7.3 0 9.3-.4c1.1-.3 1.9-1.2 2.2-2.3.5-2 .5-6.1.5-6.1s0-4.1-.5-6.1zM9.5 15.5V9l6.5 3.2-6.5 3.3z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/1a7Zk1rpgN/" target="_blank" class="h-social" title="Connect on Facebook">
+            <svg viewBox="0 0 24 24" class="h-icon"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.324v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+        </a>
+    </div>
+  <div class="hero-btns" style="margin-top: 1.5rem;">
+    <button class="btn-ghost" onclick="show('admission')">📥 Apply for Admission</button>
+    <button class="btn-ghost" onclick="show('courses')">📖 Explore Courses</button>
+  </div>
+
+</div>
+    <div class="hero-scroll" onclick="show('about')">
+      <span>Scroll</span>
+      <div class="hero-scroll-dot"></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">Years of Service</div></div>
+    <div class="stat"><div class="stat-n">1000+</div><div class="stat-l">Students Benefited</div></div>
+    <div class="stat"><div class="stat-n">1000+</div><div class="stat-l">Alumni</div></div>
+    <div class="stat"><div class="stat-n">Free</div><div class="stat-l">Food · Shelter · Education</div></div>
+  </div>
+
+  <!-- about snippet -->
+  <div class="sec" style="background:var(--cr)">
+    <div class="inner">
+      <div class="about-grid">
+        <div class="about-img-box">
+          <div class="about-img-pattern">
+            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><defs><pattern id="geo2" width="40" height="40" patternUnits="userSpaceOnUse"><polygon points="20,1 39,11 39,29 20,39 1,29 1,11" fill="none" stroke="white" stroke-width="0.8"/></pattern></defs><rect width="400" height="300" fill="url(#geo2)"/></svg>
+          </div>
+          <div class="about-img-box">
+            <img src="images/campus-main.jpg" alt="Jamia Campus" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+        </div>
+        <div class="about-content">
+          <div class="slabel">About Our Institution</div>
+          <h2 class="stitle">A Centre of Excellence in Faith & Learning</h2>
+          <div class="sline"></div>
+          <p>Jamia Khadeejathul Kubra Al Islamiyya, located in Maradu Nettoor near Vyttila, is a dedicated institution committed to nurturing students with strong Islamic values, academic excellence, and moral discipline.</p>
+          <p>Our mission is to develop knowledgeable individuals who contribute positively to society while staying rooted in faith and <span style="font-family:'Amiri',serif;font-size:1.1rem;color:var(--go)">اخلاق</span>.</p>
+          <div class="about-values">
+            <div class="val-chip">Islamic Values</div>
+            <div class="val-chip">Academic Excellence</div>
+            <div class="val-chip">Moral Discipline</div>
+            <div class="val-chip">Community Service</div>
+          </div>
+          <div style="margin-top:1.5rem"><button class="btn-gold" onclick="show('about')">Read More →</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- hadith -->
+  <div class="hadith-sec">
+    <div class="hadith-bg">
+      <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice"><defs><pattern id="geo3" width="50" height="50" patternUnits="userSpaceOnUse"><polygon points="25,1 49,13 49,37 25,49 1,37 1,13" fill="none" stroke="white" stroke-width="0.7"/></pattern></defs><rect width="800" height="400" fill="url(#geo3)"/></svg>
+    </div>
+    <div class="hadith-inner">
+      <div class="hadith-quote">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</div>
+      <div class="hadith-line"></div>
+      <div class="hadith-text">"The best among you are those who learn the Quran and teach it."</div>
+      <div class="hadith-src">— Sahih Al-Bukhari</div>
+    </div>
+  </div>
+
+  <!-- courses snippet -->
+  <div class="sec courses-sec">
+    <div class="inner">
+      <div class="slabel">What We Offer</div>
+      <h2 class="stitle">Our Core Programs</h2>
+      <div class="sline"></div>
+      <div class="courses-grid">
+        <div class="course-card"><div class="course-icon">🏫</div><h3>Model Academy</h3><p>A balanced program integrating modern education with Islamic teachings for young students.</p><div class="course-tag">Modern + Islamic</div></div>
+        <div class="course-card"><div class="course-icon">🌙</div><h3>Senior Da'wa College</h3><p>Advanced Islamic studies focused on Da'wa, leadership, and scholarly development.</p><div class="course-tag">Advanced Studies</div></div>
+        <div class="course-card"><div class="course-icon">📖</div><h3>Hifz Quran College</h3><p>A dedicated program for memorization of the Holy Quran with proper Tajweed and discipline.</p><div class="course-tag">Quran Memorisation</div></div>
+      </div>
+      <div style="text-align:center;margin-top:2rem"><button class="btn-gold" onclick="show('courses')">View All Courses →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <div class="sec" style="background:var(--cr)">
+    <div class="inner">
+      <div class="about-grid" style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
+    
+    <div class="about-image-container" style="flex: 1; min-width: 300px;">
+        <img src="images/about-institute.JPG" alt="Campus" style="width: 100%; border-radius: 12px; display: block;">
+        </div>
+
+    <div class="about-text-container" style="flex: 1.5; min-width: 300px;">
+        <div class="slabel">WHO WE ARE</div>
+        <h2 class="stitle">Rooted in Faith, Built for Excellence</h2>
+        <div class="sline"></div>
+          <p>Jamia Khadeejathul Kubra Al Islamiyya was established over 20 years ago with a singular vision — to create a sanctuary of knowledge where the light of Islam guides every student.</p>
+          <p>Located in Maradu Nettoor near Vyttila, Kochi, the institution has grown into a complete educational complex providing free food, shelter, and education to hundreds of students including orphans from across Kerala.</p>
+          <p>Named after Sayyida Khadija (RA), the first believer and unwavering supporter of the Prophet ﷺ, we uphold her legacy of sacrifice, dignity, and commitment to truth.</p>
+          <div class="arabic-text">اللَّهُمَّ عِلْمًا نَافِعًا وَعَمَلًا صَالِحًا</div>
+          <div class="about-values">
+            <div class="val-chip">Reg. No. 743/99</div>
+            <div class="val-chip">Nettoor, Ernakulam - 682040</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem">
+        <div style="background:var(--gp);border-radius:8px;padding:1.5rem;border-top:3px solid var(--go)"><h4 style="font-family:'Playfair Display',serif;color:var(--gd);margin-bottom:.5rem">Our Vision</h4><p style="font-size:.85rem;color:var(--tmu);font-weight:300">To be a leading centre of Islamic and academic excellence producing scholars who serve humanity.</p></div>
+        <div style="background:var(--gp);border-radius:8px;padding:1.5rem;border-top:3px solid var(--go)"><h4 style="font-family:'Playfair Display',serif;color:var(--gd);margin-bottom:.5rem">Our Mission</h4><p style="font-size:.85rem;color:var(--tmu);font-weight:300">Developing knowledgeable individuals rooted in faith, strong in character, and ready to contribute to society.</p></div>
+        <div style="background:var(--gp);border-radius:8px;padding:1.5rem;border-top:3px solid var(--go)"><h4 style="font-family:'Playfair Display',serif;color:var(--gd);margin-bottom:.5rem">Our Values</h4><p style="font-size:.85rem;color:var(--tmu);font-weight:300">Taqwa, knowledge, discipline, compassion, and service to the community and the deen.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COURSES -->
+<div id="page-courses" class="page">
+  <div class="sec courses-sec">
+    <div class="inner">
+      <div class="slabel">Education</div>
+      <h2 class="stitle">Courses & Programs</h2>
+      <div class="sline"></div>
+      <div class="courses-grid">
+        <div class="course-card"><div class="course-icon">🏫</div><h3>Model Academy</h3><p>A balanced program integrating modern education with Islamic teachings for young students. Covers science, mathematics, languages alongside Quran, Fiqh, and Islamic studies.</p><div class="course-tag">Modern + Islamic</div></div>
+        <div class="course-card"><div class="course-icon">🌙</div><h3>Senior Da'wa College</h3><p>Advanced Islamic studies focused on Da'wa, leadership, and scholarly development. Prepares students to become community leaders and callers to Islam.</p><div class="course-tag">Advanced Studies</div></div>
+        <div class="course-card"><div class="course-icon">📖</div><h3>Hifz Quran College</h3><p>A dedicated program for memorization of the Holy Quran with proper Tajweed and discipline. Students complete Hifz under qualified and experienced Huffaz.</p><div class="course-tag">3–5 Years</div></div>
+        <div class="course-card"><div class="course-icon">🖥️</div><h3>Computer Education</h3><p>Digital literacy and computer skills to prepare students for the modern world alongside their Islamic studies.</p><div class="course-tag">Short Course</div></div>
+        <div class="course-card"><div class="course-icon">📜</div><h3>Arabic Language</h3><p>Comprehensive Arabic from beginner to advanced — grammar (Nahw & Sarf), reading, writing, and spoken Arabic.</p><div class="course-tag">1–3 Years</div></div>
+        <div class="course-card"><div class="course-icon">🤲</div><h3>Islamic Studies & Tarbiyah</h3><p>Fiqh, Hadith, Aqeedah, Seerah, and character development for students and community members of all ages.</p><div class="course-tag">Ongoing</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hadith-sec">
+    <div class="hadith-bg"><svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice"><defs><pattern id="geo5" width="50" height="50" patternUnits="userSpaceOnUse"><polygon points="25,1 49,13 49,37 25,49 1,37 1,13" fill="none" stroke="white" stroke-width="0.7"/></pattern></defs><rect width="800" height="400" fill="url(#geo5)"/></svg></div>
+    <div class="hadith-inner">
+      <div class="hadith-quote">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</div>
+      <div class="hadith-line"></div>
+      <div class="hadith-text">"The best among you are those who learn the Quran and teach it."</div>
+      <div class="hadith-src">— Sahih Al-Bukhari</div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div id="page-gallery" class="page">
+  <div class="sec" style="background:var(--cr)">
+    <div class="inner">
+      <div class="slabel">Our Campus & Events</div>
+      <h2 class="stitle">Gallery</h2>
+      <div class="sline"></div>
+      <div class="gallery-grid">
+  <div class="gallery-item">
+    <img src="images/students.jpg" alt="Campus Main Building" class="gallery-img">
+    <div class="gallery-label">students</div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/computer-lab.jpg" alt="Computer Lab" class="gallery-img">
+    <div class="gallery-label">Computer Lab</div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/quran-class.jpg" alt="Quran Class" class="gallery-img">
+    <div class="gallery-label">Hifz Program</div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/annual-event.jpg" alt="Annual Event" class="gallery-img">
+    <div class="gallery-label">Events & Programmes</div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/library.jpg" alt="Library" class="gallery-img">
+    <div class="gallery-label">Library & Resources</div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/masjid.jpg" alt="Masjid" class="gallery-img">
+    <div class="gallery-label">Our Masjid</div>
+  </div>
+
+  <div class="gallery-item">
+    <img src="images/career.jpg" alt="Masjid" class="gallery-img">
+    <div class="gallery-label">career classes</div>
+  </div>
+</div>
+
+<div class="gallery-item">
+    <img src="images/event.jpg" alt="Computer Lab" class="gallery-img">
+    <div class="gallery-label">Embarking on studies</div>
+  </div>
+      <p style="margin-top:1.5rem;font-size:.82rem;color:var(--tmu);font-style:italic;text-align:center">✨</p>
+    </div>
+  </div>
+</div>
+
+<!-- FACULTY -->
+<div id="page-faculty" class="page">
+    <div class="sec">
+        <div class="inner">
+            <div class="slabel">Our Leadership</div>
+            <h2 class="stitle">Faculty & Management</h2>
+            <div class="sline"></div>
+
+            <div class="faculty-main">
+                <div class="faculty-card featured">
+                    <div class="f-img-wrapper large">
+                        <img src="images/president.jpg" alt="President" class="f-img">
+                    </div>
+                    <h3>Kanthapuram A.P Aboobaker MUsliyar</h3>
+                    <p class="designation">President</p>
+                    <p class="bio">Leading the institution with vision and dedication.</p>
+                </div>
+            </div>
+
+            <div class="faculty-grid">
+                <div class="faculty-card">
+                    <div class="f-img-wrapper">
+                        <img src="images/principal.jpg" alt="Faculty 1" class="f-img">
+                    </div>
+                    <h3>K S M Shihabudheen Saqafi</h3>
+                    <p>General Secretary</p>
+                </div>
+                <div class="faculty-card">
+                    <div class="f-img-wrapper">
+                        <img src="images/manager.jpg" alt="Faculty 2" class="f-img">
+                    </div>
+                    <h3>Faizullah Jeelani</h3>
+                    <p>Manager</p>
+                </div>
+                <div class="faculty-card">
+                    <div class="f-img-wrapper">
+                        <img src="images/teacher1.jpg" alt="Faculty 3" class="f-img">
+                    </div>
+                    <h3>Zainul Abid Nizami</h3>
+                    <p>Da'wa Department</p>
+                </div>
+                <div class="faculty-card">
+                    <div class="f-img-wrapper">
+                        <img src="images/teacher2.jpg" alt="Faculty 4" class="f-img">
+                    </div>
+                    <h3>Hafiz Murshid Nurani</h3>
+                    <p>Hifz Department</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CONTACT -->
+<div id="page-contact" class="page">
+  <div class="sec contact-sec">
+    <div class="inner">
+      <div class="slabel">Reach Us</div>
+      <h2 class="stitle">Contact Us</h2>
+      <div class="sline"></div>
+      <div class="contact-grid">
+  <div class="contact-sidebar">
+    <div class="cinfo-item">
+      <div class="cicon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="cinfo-text"><strong>Address</strong><span>Maradu Nettoor, near Vyttila<br>Kochi, Kerala — 682040</span></div>
+    </div>
+    
+    <div class="cinfo-item">
+      <div class="cicon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.29 6.29l1.42-1.42a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+      <div class="cinfo-text"><strong>Phone</strong><span>+91 0484 2700889<br>+91 7902700889</span></div>
+    </div>
+
+    <div class="cinfo-item">
+      <div class="cicon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div class="cinfo-text"><strong>Email</strong><span>kubranettoor@gmail.com</span></div>
+    </div>
+
+    <button class="wa-btn" onclick="window.open('https://wa.me/917902700889')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.524 5.847L0 24l6.336-1.506A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.676-.513-5.198-1.407l-.374-.222-3.863.917.963-3.764-.243-.389A9.954 9.954 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Chat on WhatsApp
+    </button>
+  </div>
+
+  <div class="map-box">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15719.972415474724!2d76.30331975902956!3d9.93453114267959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0872515c65fd8f%3A0xa63bb8dc5150a94f!2sKhadeejathul%20Kubra%20Islamic%20Complex!5e0!3m2!1sen!2sin!4v1776596483956!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+  <div class="cform">
+    <input type="text" id="cn" placeholder="Your full name" />
+    <input type="email" id="ce" placeholder="Email address" />
+    <input type="tel" id="cp" placeholder="Phone number" />
+    <input type="text" id="cs" placeholder="Subject" />
+    <textarea id="cm" placeholder="Your message..."></textarea>
+    <button onclick="sendContact()">Send Message</button>
+    <div class="sent-ok" id="sent-ok">Jazakallahu Khayran! Your message was sent.</div>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<!--donate-->
+<div id="page-donate" class="page">
+    <div class="sec">
+        <div class="inner">
+            <div class="slabel">Support Our Mission</div>
+            <h2 class="stitle">Donate Now</h2>
+            <div class="sline"></div>
+
+            <div class="contact-grid">
+                <div class="contact-sidebar">
+                    <div class="cinfo-item">
+                        <div class="cinfo-text">
+                            <strong>Bank Account Details</strong>
+                            <span>
+                                Bank: Federal Bank<br>
+                                Branch Name: Kundanoor<br>
+                                A/C: 20030100008336<br>
+                                IFSC:  FDRL0002003
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <strong>Institutional Profile</strong>
+                        <p style="font-size: 0.9rem; margin-bottom: 15px;">Learn more about our projects and vision.</p>
+                        <a href="brochure.pdf" target="_blank" class="btn-ghost" style="display: inline-block; width: 100%; text-align: center; border: 2px solid var(--go); color: var(--go);">
+                            📥 View / Download Brochure
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cform" style="text-align: center;">
+                    <strong>Scan to Pay (UPI)</strong>
+                    <div style="background: white; padding: 15px; border-radius: 12px; display: inline-block; margin-top: 15px;">
+                        <img src="images/qr-code.png" alt="UPI QR Code" style="width: 200px; height: 200px;">
+                    </div>
+                    <p style="margin-top: 15px; font-size: 0.85rem; color: #666;">
+                        You can use GPay, PhonePe, or any UPI app.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ADMISSION -->
+<div id="page-admission" class="page">
+  <div class="sec admission-sec">
+    <div class="inner">
+      <div class="slabel">Join Us</div>
+      <h2 class="stitle">Apply for Admission</h2>
+      <div class="sline"></div>
+      <div class="adm-grid">
+        <div>
+          <div class="sdesc" style="margin-bottom:2rem">We welcome students from across Kerala and beyond who are eager to seek Islamic knowledge in a disciplined and caring environment.</div>
+          <div class="adm-steps">
+            <div class="adm-step"><div class="adm-num">1</div><div class="adm-step-text"><h4>Fill the Application Form</h4><p>Complete the form with your details and preferred course.</p></div></div>
+            <div class="adm-step"><div class="adm-num">2</div><div class="adm-step-text"><h4>Visit the Campus</h4><p>Schedule a visit to meet our faculty and see the facilities.</p></div></div>
+            <div class="adm-step"><div class="adm-num">3</div><div class="adm-step-text"><h4>Entrance Assessment</h4><p>A simple assessment to place the student in the right class.</p></div></div>
+            <div class="adm-step"><div class="adm-num">4</div><div class="adm-step-text"><h4>Confirmation & Enrolment</h4><p>Receive your admission letter and begin your journey.</p></div></div>
+          </div>
+          <div style="background:white;border-radius:8px;padding:1.4rem;box-shadow:var(--shadow);margin-top:1.5rem">
+            <p style="font-size:.82rem;color:var(--tmu);margin-bottom:.5rem"><strong style="color:var(--gd)">Note:</strong> Food, shelter, and education are provided <strong style="color:var(--go)">free of charge</strong> for deserving students including orphans.</p>
+            <p style="font-size:.82rem;color:var(--tmu)">For enquiries call <strong style="color:var(--gd)">+91 7902700889</strong></p>
+          </div>
+        </div>
+        <div class="adm-form">
+          <h3>Admission Enquiry Form</h3>
+          <input type="text" id="an" placeholder="Student full name" />
+          <input type="text" id="ag" placeholder="Age / Date of Birth" />
+          <select id="ac"><option value="">Select Program</option><option>Model Academy</option><option>Senior Da'wa College</option><option>Hifz Quran College</option><option>Arabic Language</option><option>Computer Education</option><option>Islamic Studies</option></select>
+          <input type="text" id="ap" placeholder="Parent / Guardian name" />
+          <input type="tel" id="aph" placeholder="Phone number" />
+          <input type="email" id="ae" placeholder="Email address (optional)" />
+          <textarea id="am" placeholder="Any additional information..." style="height:80px"></textarea>
+          <button onclick="sendAdm()">Submit Application</button>
+          <div class="adm-sent" id="adm-sent">Jazakallahu Khayran! Your application has been received. We will contact you soon insha'Allah.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Jamia Khadeejathul Kubra Al Islamiyya</div>
+  <div class="footer-ar">جامعة خديجة الكبرى الإسلامية</div>
+  <div class="footer-links">
+    <a onclick="show('home')">Home</a>
+    <a onclick="show('about')">About</a>
+    <a onclick="show('courses')">Courses</a>
+    <a onclick="show('gallery')">Gallery</a>
+    <a onclick="show('faculty')">Faculty</a>
+    <a onclick="show('admission')">Admission</a>
+    <a onclick="show('contact')">Contact</a>
+    <a onclick="show('donate')">Donate</a>
+  </div>
+  <p>Reg. No. 743/99 · Nettoor P.O., Maradu, Ernakulam, Kochi · kcnettoor@gmail.com · <span>+91 7902700889</span></p>
+  <p style="margin-top:.4rem">&copy; 2025 <span>Jamia Khadeejathul Kubra Al Islamiyya</span>. All rights reserved.</p>
+</footer>
+
+
+
+<script>
+var pages = ['home', 'about', 'courses', 'gallery', 'faculty', 'contact', 'admission', 'donate'];
+
+function show(id) {
+    pages.forEach(function(p) {
+        // Safety check: only try to change classes if the element actually exists
+        var pg = document.getElementById('page-' + p);
+        if (pg) pg.classList.remove('active');
+        
+        var nl = document.getElementById('nl-' + p);
+        if (nl) nl.classList.remove('active-link');
+    });
+
+    var targetPage = document.getElementById('page-' + id);
+    if (targetPage) {
+        targetPage.classList.add('active');
+        var nl = document.getElementById('nl-' + id);
+        if (nl) nl.classList.add('active-link');
+        
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // MOBILE FIX: If the user is on a phone, this scrolls the nav-links 
+        // back to the start so they can see the first menu items again.
+        var navLinks = document.querySelector('.nav-links');
+        if (navLinks) navLinks.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+}
+
+function sendContact() {
+    // 1. Get the values from the form
+    var name = document.getElementById('cn').value;
+    var email = document.getElementById('ce').value;
+    var phone = document.getElementById('cp').value;
+    var subject = document.getElementById('cs').value;
+    var message = document.getElementById('cm').value;
+
+    // 2. Basic Validation
+    if (!name || !email || !message) {
+        alert('Please fill in your name, email, and message.');
+        return;
+    }
+
+    // 3. Construct the WhatsApp message
+    // %0A is the code for a "New Line"
+    var wpMessage = "Assalamu Alaikum, I have a contact inquiry from the website.%0A%0A" + 
+                    "*Name:* " + encodeURIComponent(name) + "%0A" +
+                    "*Email:* " + encodeURIComponent(email) + "%0A" +
+                    "*Phone:* " + encodeURIComponent(phone) + "%0A" +
+                    "*Subject:* " + encodeURIComponent(subject) + "%0A" +
+                    "*Message:* " + encodeURIComponent(message);
+
+    // 4. Open WhatsApp (Replace with your specific number)
+    var wpUrl = "https://wa.me/917902700889?text=" + wpMessage;
+    window.open(wpUrl, '_blank');
+
+    // 5. Clear the form fields
+    ['cn', 'ce', 'cp', 'cs', 'cm'].forEach(function(id) { 
+        document.getElementById(id).value = ''; 
+    });
+
+    // 6. Show the success message
+    var m = document.getElementById('sent-ok');
+    m.style.display = 'block';
+    setTimeout(function() { m.style.display = 'none'; }, 6000);
+}
+
+function sendAdm() {
+    var name = document.getElementById('an').value;
+    var phone = document.getElementById('aph').value;
+    var course = document.getElementById('ac').value;
+
+    if(!name || !phone) { alert('Please fill in details'); return; }
+
+    // This creates a link that opens WhatsApp with a pre-filled message
+    var message = "Assalamu Alaikum, I would like to apply for admission.%0A" + 
+                  "Name: " + name + "%0A" + 
+                  "Phone: " + phone + "%0A" + 
+                  "Course: " + course;
+    
+    window.open("https://wa.me/917902700889?text=" + message);
+}
+
+// Optimized Scroll Observer
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('nav');
+    if (window.scrollY > 50) {
+        navbar.classList.add('nav-scrolled');
+    } else {
+        navbar.classList.remove('nav-scrolled');
+    }
+});
+
+// Intersection Observer for animations
+const observerOptions = { threshold: 0.1 };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.sec, .course-card, .faculty-card, .stat').forEach((el) => {
+    el.classList.add('reveal-hidden');
+    observer.observe(el);
+});
+</script>
+</body>
+</html>
